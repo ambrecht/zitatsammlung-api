@@ -1,0 +1,35 @@
+{
+  "name": "fastify-bootstrap-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "fastify start -l info app.js",
+    "test": "jest --coverage --runInBand",
+    "debug": "fastify start -d -I 9229 -l info app.js",
+    "dev": "fastify start -w --ignore-watch='data' -l info -P app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "db-migrate": "^0.11.11",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^8.2.0",
+    "fastify": "^2.0.0",
+    "fastify-autoload": "^1.0.0",
+    "fastify-cli": "^1.5.0",
+    "fastify-massive": "^0.3.0",
+    "fastify-plugin": "^1.5.0",
+    "fastify-swagger": "^2.6.0",
+    "jest": "^26.5.3",
+    "pg-promise": "^10.5.7"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "tap": "^12.5.3"
+  }
+}
