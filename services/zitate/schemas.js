@@ -1,14 +1,16 @@
 const zitatSchema = {
-  type: 'object',
-  required: ['id', 'title', 'body'],
-  properties: {
-    id: { type: 'number', description: 'Unique identifier for a specific note' },
-    title: { type: 'string' },
-    body: { type: 'string', description: 'Main content of the note' }
-  }
-};
-
+    type: 'object',
+    required: ['id', 'body'],
+    properties: {
+        id: {
+            type: 'number',
+            description: 'Unique identifier for a specific zitat',
+        },
+        body: { type: 'string', description: 'Main content of the zitat' },
+        created,
+    },
+}
 
 module.exports = {
-  zitatSchema,
+    zitatSchema,
 }

@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "properties": {
+        "zitat": {
+            "$id": "#/properties/zitat",
+            "type": "object",
+            "examples": [
+                {
+                    "body": "Von unsern Eigenschaften kann keine dem göttlichen Wesen zugeschrieben werden, ohne es mit ihrer Unvollkommenheit zu beflecken.",
+                    "autor": "Michel de Montaigne",
+                    "seite": "55",
+                    "buch": {
+                        "titel": "Tagebuch der Reise nach Italien",
+                        "verlag": "Eichborn Verlag",
+                        "jahr": "2009"
+                    },
+                    "hashtag": "#Gott",
+                    "user": "betonkopf"
+                }
+            ],
+            "properties": {
+                "body": {
+                    "type": "string",
+                    "examples": [
+                        "Von unsern Eigenschaften kann keine dem göttlichen Wesen zugeschrieben werden, ohne es mit ihrer Unvollkommenheit zu beflecken."
+                    ]
+                },
+                "autor": {
+                    "type": "string",
+                    "examples": ["Michel de Montaigne"]
+                },
+                "seite": {
+                    "type": "string",
+                    "examples": ["55"]
+                },
+                "buch": {
+                    "type": "object",
+                    "examples": [
+                        {
+                            "titel": "Tagebuch der Reise nach Italien",
+                            "verlag": "Eichborn Verlag",
+                            "jahr": "2009"
+                        }
+                    ],
+                    "properties": {
+                        "titel": {
+                            "type": "string",
+                            "examples": ["Tagebuch der Reise nach Italien"]
+                        },
+                        "verlag": {
+                            "type": "string",
+                            "examples": ["Eichborn Verlag"]
+                        },
+                        "jahr": {
+                            "type": "string",
+                            "examples": ["2009"]
+                        }
+                    }
+                },
+                "hashtag": {
+                    "type": "array",
+                    "maxItems": 8,
+                    "items": {
+                        "type": "string",
+                        "examples": ["#Gott", "#Vollkommenheit"]
+                    }
+                },
+                "user": {
+                    "type": "string",
+                    "examples": ["betonkopf"],
+                    "email": {
+                        "type": "string",
+                        "pattern": "^[\\w|-|.]+@[\\w]+\\.[A-Za-z]{2,4}$"
+                    }
+                }
+            }
+        }
+    },
+    "additionalProperties": { "type": "string" },
+    "required": ["body", "user"]
+}

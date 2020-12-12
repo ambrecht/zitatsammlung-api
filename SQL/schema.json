@@ -1,0 +1,264 @@
+[
+    {
+        "$comment": "JSON Schema for zitate table",
+        "$id": "zitate",
+        "title": "zitate",
+        "type": "object",
+        "required": ["id", "body"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "created_at": {
+                "type": "string",
+                "default": "current_timestamp()"
+            },
+            "updated_at": {
+                "type": "string",
+                "default": "current_timestamp()"
+            },
+            "body": { "type": "string", "maxLength": 5000 },
+            "seitenzahl": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            },
+            "buch_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            },
+            "autor_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            },
+            "user_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "created_at": { "$ref": "#/definitions/created_at" },
+            "updated_at": { "$ref": "#/definitions/updated_at" },
+            "body": { "$ref": "#/definitions/body" },
+            "seitenzahl": { "$ref": "#/definitions/seitenzahl" },
+            "buch_id": { "$ref": "#/definitions/buch_id" },
+            "autor_id": { "$ref": "#/definitions/autor_id" },
+            "user_id": { "$ref": "#/definitions/user_id" }
+        }
+    },
+    {
+        "$comment": "JSON Schema for autoren table",
+        "$id": "autoren",
+        "title": "autoren",
+        "type": "object",
+        "required": ["id", "vorname", "nachname"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "icon": { "type": "string", "maxLength": 50 },
+            "vorname": { "type": "string", "maxLength": 50 },
+            "nachname": { "type": "string", "maxLength": 50 },
+            "geburt": { "type": "string", "format": "date" },
+            "tod": { "type": "string", "format": "date" }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "icon": { "$ref": "#/definitions/icon" },
+            "vorname": { "$ref": "#/definitions/vorname" },
+            "nachname": { "$ref": "#/definitions/nachname" },
+            "geburt": { "$ref": "#/definitions/geburt" },
+            "tod": { "$ref": "#/definitions/tod" }
+        }
+    },
+    {
+        "$comment": "JSON Schema for buecher table",
+        "$id": "buecher",
+        "title": "buecher",
+        "type": "object",
+        "required": ["id", "titel", "jahr", "verlag"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "titel": { "type": "string", "maxLength": 50 },
+            "jahr": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            },
+            "verlag": { "type": "string", "maxLength": 50 },
+            "autor_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "titel": { "$ref": "#/definitions/titel" },
+            "jahr": { "$ref": "#/definitions/jahr" },
+            "verlag": { "$ref": "#/definitions/verlag" },
+            "autor_id": { "$ref": "#/definitions/autor_id" }
+        }
+    },
+    {
+        "$comment": "JSON Schema for hashtags table",
+        "$id": "hashtags",
+        "title": "hashtags",
+        "type": "object",
+        "required": ["id", "tag"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "created_at": { "type": "string" },
+            "tag": { "type": "string", "maxLength": 50 }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "created_at": { "$ref": "#/definitions/created_at" },
+            "tag": { "$ref": "#/definitions/tag" }
+        }
+    },
+    {
+        "$comment": "JSON Schema for hash2zitat table",
+        "$id": "hash2zitat",
+        "title": "hash2zitat",
+        "type": "object",
+        "required": ["id"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "zitat_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            },
+            "hashtag_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "zitat_id": { "$ref": "#/definitions/zitat_id" },
+            "hashtag_id": { "$ref": "#/definitions/hashtag_id" }
+        }
+    },
+    {
+        "$comment": "JSON Schema for user table",
+        "$id": "user",
+        "title": "user",
+        "type": "object",
+        "required": ["id", "username", "bio", "avatar"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "created_at": { "type": "string" },
+            "updated_at": { "type": "string" },
+            "username": { "type": "string", "maxLength": 50 },
+            "bio": { "type": "string", "maxLength": 500 },
+            "avatar": { "type": "string", "maxLength": 200 }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "created_at": { "$ref": "#/definitions/created_at" },
+            "updated_at": { "$ref": "#/definitions/updated_at" },
+            "username": { "$ref": "#/definitions/username" },
+            "bio": { "$ref": "#/definitions/bio" },
+            "avatar": { "$ref": "#/definitions/avatar" }
+        }
+    },
+    {
+        "$comment": "JSON Schema for kommentare table",
+        "$id": "kommentare",
+        "title": "kommentare",
+        "type": "object",
+        "required": ["id", "text"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "text": { "type": "string", "maxLength": 5000 },
+            "created_at": {
+                "type": "string",
+                "default": "current_timestamp()"
+            },
+            "updated_at": {
+                "type": "string",
+                "default": "current_timestamp()"
+            },
+            "username_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "text": { "$ref": "#/definitions/text" },
+            "created_at": { "$ref": "#/definitions/created_at" },
+            "updated_at": { "$ref": "#/definitions/updated_at" },
+            "username_id": { "$ref": "#/definitions/username_id" }
+        }
+    },
+    {
+        "$comment": "JSON Schema for kommentar2zitat table",
+        "$id": "kommentar2zitat",
+        "title": "kommentar2zitat",
+        "type": "object",
+        "required": ["id"],
+        "definitions": {
+            "id": {
+                "$comment": "primary key",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+            },
+            "zitat_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            },
+            "kommentar_id": {
+                "type": "integer",
+                "minimum": -2147483648,
+                "maximum": 2147483647
+            }
+        },
+        "properties": {
+            "id": { "$ref": "#/definitions/id" },
+            "zitat_id": { "$ref": "#/definitions/zitat_id" },
+            "kommentar_id": { "$ref": "#/definitions/kommentar_id" }
+        }
+    }
+]

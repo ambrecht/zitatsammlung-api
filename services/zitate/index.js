@@ -4,7 +4,6 @@ const ZitateDAL = require('./zitateDAL');
 module.exports = function (fastify, opts, next) {
   const zitateDAL = ZitateDAL(fastify.db);
 
-
   fastify.route({
     method: 'GET',
     url: '/zitate',
@@ -14,21 +13,24 @@ module.exports = function (fastify, opts, next) {
       querystring: {
         type: 'object',
         properties: {
-          'filter[body]': { type: 'string', description: 'Vector match against the body field' }
-        }
+          'filter[body]': {
+            type: 'string',
+            description: 'Vector match against the body field',
+          },
+        },
       },
       response: {
         200: {
           type: 'array',
-          items: zitatSchema
-        }
-      }
+          items: zitatSchema,
+        },
+      },
     },
     handler: async (request, reply) => {
       const vectorSearch = request.query['filter[body]'];
 
-      return zitateDAL.getzitate(vectorSearch);
-    }
+      return zitateDAL.getZitate(vectorSearch);
+    },
   });
 
   fastify.route({
@@ -43,11 +45,11 @@ module.exports = function (fastify, opts, next) {
         properties: {
           title: { type: 'string' },
           body: { type: 'string' },
-        }
+        },
       },
       response: {
-        200: zitatSchema
-      }
+        200: zitatSchema,
+      },
     },
     handler: async (request, reply) => {
       const { title, body } = request.body;
@@ -55,7 +57,7 @@ module.exports = function (fastify, opts, next) {
       const newzitat = await zitateDAL.createzitat(title, body);
 
       return newzitat;
-    }
+    },
   });
 
   fastify.route({
@@ -68,8 +70,8 @@ module.exports = function (fastify, opts, next) {
         type: 'object',
         required: ['id'],
         properties: {
-          id: { type: 'number' }
-        }
+          id: { type: 'number' },
+        },
       },
       body: {
         type: 'object',
@@ -77,11 +79,11 @@ module.exports = function (fastify, opts, next) {
         properties: {
           title: { type: 'string' },
           body: { type: 'string' },
-        }
+        },
       },
       response: {
-        200: zitatSchema
-      }
+        200: zitatSchema,
+      },
     },
     handler: async (request, reply) => {
       const { id } = request.params;
@@ -90,7 +92,7 @@ module.exports = function (fastify, opts, next) {
       const updatedzitat = await zitateDAL.updatezitat(id, title, body);
 
       return updatedzitat;
-    }
+    },
   });
 
   fastify.route({
@@ -103,18 +105,18 @@ module.exports = function (fastify, opts, next) {
         type: 'object',
         required: ['id'],
         properties: {
-          id: { type: 'number' }
-        }
+          id: { type: 'number' },
+        },
       },
       response: {
-        204: { type: 'string', default: 'No Content' }
-      }
+        204: { type: 'string', default: 'No Content' },
+      },
     },
     handler: async (request, reply) => {
       await zitateDAL.deletezitat(request.params.id);
 
       reply.status(204);
-    }
+    },
   });
 
   next();
