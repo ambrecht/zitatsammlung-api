@@ -18,15 +18,16 @@ module.exports = function (fastify, opts, next) {
                 },
             },
             response: {
-                204: zitatSchema,
+                200: zitatSchema,
             },
         },
         handler: async (request, reply) => {
+            reply.sent = true
+            reply.res.setHeader('Content-Type', 'application/json')
             const { title, body } = request.body
 
             const newzitat = await interaction.insertZitat(body, title)
-
-            return newzitat
+            reply.res.end(newzitat)
         },
     })
 
