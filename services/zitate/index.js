@@ -18,13 +18,13 @@ module.exports = function (fastify, opts, next) {
                 },
             },
             response: {
-                200: zitatSchema,
+                204: zitatSchema,
             },
         },
         handler: async (request, reply) => {
-            const { body } = request.body
+            const { title, body } = request.body
 
-            const newzitat = await interaction.insertZitat(body)
+            const newzitat = await interaction.insertZitat(body, title)
 
             return newzitat
         },
