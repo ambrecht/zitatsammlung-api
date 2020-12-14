@@ -1,26 +1,38 @@
 const DBinteractions = (db) => {
-    const insertZitat = async (title, body) => {
-        const { id } = await db
+    const insertZitat = async () => {
+        const id = await db
             .tx((t) => {
-                // creating a sequence of transaction queries:
-                const q1 = t.none('UPDATE zitate SET text = $1', [body])
-                const q2 = db.one(
-                    'INSERT INTO notes (title, body) VALUES ($1, $2) RETURNING id',
-                    [title, body]
+                const queries = [
+                    t.none('DROP TABLE notes;'),
+                    t.none(
+                        'CREATE TABLE notes(id SERIAL NOT NULL, name TEXT NOT NULL)'
+                    ),
+                ]
+                for (let i = 1; i <= 10; i++) {
+                    queries.push(
+                        t.none(
+                            'INSERT INTO notes(name) VALUES($1)',
+                            'name-' + i
+                        )
+                    )
+                }
+                queries.push(
+                    t.tx((t1) => {
+                        return t1.tx((t2) => {
+                            return t2.one('SELECT COUNT(*) FROM notes')
+                        })
+                    })
                 )
-
-                // returning a promise that determines a successful transaction:
-                return t.batch([q1, q2]) // all of the queries are to be resolved;
+                return t.batch(queries)
             })
             .then((data) => {
-                console.log(data)
                 return data
             })
             .catch((error) => {
-                return error
+                console.log(error)
             })
+        return { id }
     }
-
     return { insertZitat }
 }
 
