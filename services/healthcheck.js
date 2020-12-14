@@ -6,8 +6,7 @@ module.exports = function (fastify, opts, next) {
         url: '/',
         schema: {
             tags: ['Healthcheck'],
-            description:
-                'Healthcheck endpoint to determine if service is up and running',
+            description: 'Healthcheck endpoint to determine if service is up and running',
             response: {
                 200: {
                     type: 'object',

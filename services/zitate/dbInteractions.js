@@ -4,17 +4,10 @@ const DBinteractions = (db) => {
             .tx((t) => {
                 const queries = [
                     t.none('DROP TABLE notes;'),
-                    t.none(
-                        'CREATE TABLE notes(id SERIAL NOT NULL, name TEXT NOT NULL)'
-                    ),
+                    t.none('CREATE TABLE notes(id SERIAL NOT NULL, name TEXT NOT NULL)'),
                 ]
                 for (let i = 1; i <= 10; i++) {
-                    queries.push(
-                        t.none(
-                            'INSERT INTO notes(name) VALUES($1)',
-                            'name-' + i
-                        )
-                    )
+                    queries.push(t.none('INSERT INTO notes(name) VALUES($1)', 'name-' + i))
                 }
                 queries.push(
                     t.tx((t1) => {
