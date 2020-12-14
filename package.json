@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "atob": "^2.1.2",
     "db-migrate": "^0.11.11",
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^8.2.0",
@@ -26,6 +27,7 @@
     "fastify-plugin": "^1.5.0",
     "fastify-swagger": "^2.6.0",
     "jest": "^26.5.3",
+    "pg": "^8.5.1",
     "pg-promise": "^10.5.7",
     "sql-ddl-to-json-schema": "^4.0.4"
   },

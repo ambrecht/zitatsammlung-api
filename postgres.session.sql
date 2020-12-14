@@ -1,0 +1,1 @@
+SELECT NOW() AS time, 'world' AS hello

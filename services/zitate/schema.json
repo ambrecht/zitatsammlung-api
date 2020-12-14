@@ -8,16 +8,21 @@
             "type": "object",
             "examples": [
                 {
-                    "body": "Von unsern Eigenschaften kann keine dem göttlichen Wesen zugeschrieben werden, ohne es mit ihrer Unvollkommenheit zu beflecken.",
-                    "autor": "Michel de Montaigne",
-                    "seite": "55",
-                    "buch": {
-                        "titel": "Tagebuch der Reise nach Italien",
-                        "verlag": "Eichborn Verlag",
-                        "jahr": "2009"
-                    },
-                    "hashtag": "#Gott",
-                    "user": "betonkopf"
+                    "zitat": {
+                        "body": "Von unsern Eigenschaften kann keine dem göttlichen Wesen zugeschrieben werden, ohne es mit ihrer Unvollkommenheit zu beflecken.",
+                        "autor": "Michel de Montaigne",
+                        "seite": "55",
+                        "buch": {
+                            "titel": "Tagebuch der Reise nach Italien",
+                            "verlag": "Eichborn Verlag",
+                            "jahr": "2009"
+                        },
+                        "hashtag": "#Gott",
+                        "user": {
+                            "name": "betonhead",
+                            "email": "bier@wurst.de"
+                        }
+                    }
                 }
             ],
             "properties": {
@@ -28,11 +33,11 @@
                     ]
                 },
                 "autor": {
-                    "type": "string",
+                    "type": "object",
                     "examples": ["Michel de Montaigne"]
                 },
                 "seite": {
-                    "type": "string",
+                    "type": "number",
                     "examples": ["55"]
                 },
                 "buch": {
@@ -54,7 +59,7 @@
                             "examples": ["Eichborn Verlag"]
                         },
                         "jahr": {
-                            "type": "string",
+                            "type": "number",
                             "examples": ["2009"]
                         }
                     }
@@ -68,16 +73,26 @@
                     }
                 },
                 "user": {
-                    "type": "string",
-                    "examples": ["betonkopf"],
-                    "email": {
-                        "type": "string",
-                        "pattern": "^[\\w|-|.]+@[\\w]+\\.[A-Za-z]{2,4}$"
+                    "type": "object",
+                    "examples": [
+                        {
+                            "name": "betonhead",
+                            "email": "bier@wurst.de"
+                        }
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string",
+                            "pattern": "^[\\w|-|.]+@[\\w]+\\.[A-Za-z]{2,4}$"
+                        }
                     }
                 }
-            }
+            },
+            "additionalProperties": false,
+            "required": ["body", "user"]
         }
-    },
-    "additionalProperties": { "type": "string" },
-    "required": ["body", "user"]
+    }
 }
