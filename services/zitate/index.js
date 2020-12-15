@@ -22,11 +22,8 @@ module.exports = function (fastify, opts, next) {
             },
         },
         handler: async (request, reply) => {
-            reply.sent = true
-            reply.res.setHeader('Content-Type', 'application/json')
             const { title, body } = request.body
             const newzitat = await interaction.insertZitat(body, title)
-            reply.res.end()
             return newzitat
         },
     })

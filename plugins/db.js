@@ -1,17 +1,12 @@
-const fp = require('fastify-plugin')
+const plugin = require('fastify-plugin')
 const pgp = require('pg-promise')()
 const appConfig = require('../config/appConfig')
 
-module.exports = fp(
-    async function (fastify, opts) {
-        const db = pgp(appConfig.postgresUri)
-
-        fastify
-            .decorate('db', db)
-            .addHook('onClose', async (instance, done) => {
-                await db.$pool.end()
-                done()
-            })
-    },
-    { name: 'db' }
-)
+const dbPlugin = async (fastify, opts, done) => {
+    //const db = pgp(appConfig.postgresUri)
+    const db = pgp(appConfig.postgresUri)
+    fastify.addHook('onClose', async (instance, done) => await db.$pool.end(done))
+    fastify.decorate('db', db)
+    done()
+}
+module.exports = plugin(dbPlugin)
