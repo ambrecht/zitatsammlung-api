@@ -1,4 +1,4 @@
-const zitatSchema = require('./schema')
+const zitatSchema = require('./schemas')
 const dbInteractions = require('./dbInteractions')
 
 module.exports = function (fastify, opts, next) {
@@ -8,17 +8,8 @@ module.exports = function (fastify, opts, next) {
         method: 'POST',
         url: '/zitate',
         schema: {
-            tags: ['zitate'],
-            description: 'Create a zitat',
-            body: {
-                type: 'object',
-                required: ['body'],
-                properties: {
-                    body: { type: 'string' },
-                },
-            },
-            response: {
-                200: zitatSchema,
+            schema: {
+                body: { $ref: 'zitat' },
             },
         },
         handler: async (request, reply) => {
