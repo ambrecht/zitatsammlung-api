@@ -1,5 +1,4 @@
-const fastifyPlugin = require('fastify-plugin')
-const zitatSchema = {
+const zitat = {
     $id: 'http://example.com/common.json',
     type: 'object',
     properties: {
@@ -7,8 +6,4 @@ const zitatSchema = {
     },
 }
 
-function createSchemas(fastify, opts, done) {
-    fastify.addSchema(zitatSchema)
-    done()
-}
-module.exports = fastifyPlugin(createSchemas)
+module.exports = zitat

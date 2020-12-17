@@ -1,5 +1,7 @@
-const zitatSchema = require('./schemas')
-const dbInteractions = require('./dbInteractions')
+'use strict'
+
+const { zitat: zitatSchema } = require('./schemas')
+const dbInteractions = require('./service')
 
 module.exports = function (fastify, opts, next) {
     const interaction = dbInteractions(fastify.db)
