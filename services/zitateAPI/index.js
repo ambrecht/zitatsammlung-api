@@ -1,25 +1,24 @@
 'use strict'
 
 const { zitat: zitatSchema } = require('./schemas')
-const dbInteractions = require('./service')
+const Interaction = require('./dbinteractions')
 
-module.exports = function (fastify, opts, next) {
-    const interaction = dbInteractions(fastify.db)
+module.exports = async function (server, opts, next) {
+    const interaction = Interaction(server.db)
 
-    fastify.route({
-        method: 'POST',
-        url: '/zitate',
-        schema: {
-            schema: {
-                body: { $ref: 'zitat' },
-            },
-        },
-        handler: async (request, reply) => {
-            const { title, body } = request.body
-            const newzitat = await interaction.insertZitat(body, title)
-            return newzitat
-        },
-    })
+    // Routes
+    server.post('/test', test)
+    server.post('/insert', jsonb)
 
-    next()
+    //Route Methodes
+    async function test(request, reply) {
+        const { title, body } = request.body
+        const test = await interaction.testdb(body, title)
+        return test
+    }
+
+    async function jsonb(request, reply) {
+        const insertJSON = await interaction.insertJSONB(request.body)
+        return insertJSON
+    }
 }
